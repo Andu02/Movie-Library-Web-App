@@ -1,0 +1,74 @@
+<%- include("partials/header.ejs") %>
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <% if(locals.isSearching === false) { %>  
+          <h1>Movie Library</h1>
+          <p class="lead">The movies I've seen so far with my personal rating.</p>
+        <% } else if(locals.search) { %>
+          <h1>You've searched for <i><%= search %></i></h1>
+          <p class="lead">Here's the list.</p>
+        <% } %>
+      </div>
+
+    <div class="container">
+    <div class="row">
+      <% if(locals.movies.length) { %>
+      <% movies.forEach(movie => { %>
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+        <hr>
+        <div class="profile-card-6">
+              <% if(movie.poster_src === "N/A") { %>
+                <img src="assets/images/poster_placeholder.jpg" class="img-fluid">
+              <% } else { %>
+                <img src="<%= movie.poster_src %>" class="img-fluid">
+              <% } %>
+
+              <div class="profile-name" id="container">
+                <div id="menu-wrap">
+                  <input type="checkbox" class="toggler"/>
+                  <div class="dots">
+                    <div></div>
+                  </div>
+                  <div class="menu card" style="width: 8rem;">
+                    <div>
+                      <ul>
+                        <li>
+                          <form action="/delete/<%= movie.id %>" method="post">
+                            <input type="submit" value="Delete">
+                          </form>
+                        </li>
+                        <li>
+                          <form action="/edit/<%= movie.id %>" method="get">
+                            <input type="submit" value="Edit Rating">
+                          </form>
+                        </li>
+                        <li>
+                          <form action="/movie/<%= movie.id %>" method="get">
+                            <input type="submit" value="Details">
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="profile-position"><%= movie.description %></div> -->
+              <div class="profile-overview title-card">
+                  <div class="text-center">
+                      <div class="col-xs-4">
+                          <div class="movie-info">
+                            <h2><b><%= movie.title %></b></h2>
+                            <h3><span style="color: #DBA506; font-size: 3rem;"><%= movie.rating %></span>/10</h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <% })} %>
+    </div>
+</div>
+    
+<%- include("partials/footer.ejs") %>    

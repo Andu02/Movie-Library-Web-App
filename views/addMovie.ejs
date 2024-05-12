@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+
+    <main role="main" class="container">
+
+    <div class="form-container">
+      <!-- code here -->
+      <div class="card">
+        <h2 class="default-padding text-center no-margin">Add a new movie</h2>
+        <form action="/add" method="post" class="text-center card-form" autocomplete="off">
+          <div class="input">
+            <input type="text" class="input-field" id="movieName" name="movieName" required/>
+            <label class="input-label">Title</label>
+          </div>
+          <div class="input">
+            <input type="text" class="input-field" id="rating" name="rating" required/>
+            <label class="input-label">Rating</label>
+          </div>
+          <div>
+            <% if(locals.errors.length > 0) { %>
+            <% errors.forEach(error => { %>
+              <p style="color: red"><%= error %></p>  
+            <% })} %>
+          </div>
+          <div class="action default-padding">
+            <button type="submit" class="action-button">Add movie</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+<%- include("partials/footer.ejs") %>   
