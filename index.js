@@ -7,10 +7,10 @@ const app = express();
 const port = 3000;
 
 const dbConfig = {
-  user: "postgres",
-  host: "localhost",
-  database: "movie_library",
-  password: "Masina1Masina123!",
+  user: "movie_library_gvr5_user",
+  host: "dpg-cp0vkqfjbltc73e4od4g-a",
+  database: "movie_library_gvr5",
+  password: "HrwgcJ4BUgZ3bkBpbix8zsgnzSALMJzR",
   port: 5432,
 };
 
