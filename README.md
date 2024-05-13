@@ -7,6 +7,7 @@ This project is a Movie Library web application built with Node.js, Express.js, 
 - Fetch movie details from OMDb API
 - Store movie data in PostgreSQL database
 - Error handling for duplicate movies and invalid ratings
+- Rate limiting for optimized server performance
 
 # Technologies Used
 - Node.js
