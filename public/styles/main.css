@@ -27,7 +27,7 @@ body {
 .profile-card-6 img {
   transition: all 0.15s linear;
   width: 100%; 
-  height: 23rem; 
+  height: 22rem; 
 }
 
 .profile-card-6 .profile-name {
@@ -506,6 +506,9 @@ body small a {
     width: auto; 
     margin: 0;
   }
+  .profile-card-6 img {
+    height: 25rem; 
+  }
 }
 
 .title-card {
@@ -526,3 +529,4 @@ body small a {
 .error {
   padding-top: 15px;
 }
+
