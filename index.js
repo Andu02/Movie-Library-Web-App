@@ -123,14 +123,7 @@ app.get("/edit/:id", async (req, res) => {
       errors
     });
   } catch (err) {
-
-    if(err.constraint === "check_value" || err.routine == "float8in_internal_opt_error") {
-      errors.push("Rating should be number between 0 and 10");
-    }
-    console.error("Error editing rating:", err);
-
-    res.redirect(`/edit/${movieId}`);
-
+    console.log(err);
   }
 });
 
@@ -138,17 +131,22 @@ app.post("/edit/:id", async (req, res) => {
   
   const editedRating = req.body.editedRating;
   const movieId = req.params.id;
+  errors = [];
   
   try {
 
     await db.query("UPDATE movies SET rating=$1 WHERE id=$2", [editedRating, movieId]);
+    res.redirect("/");
     
   } catch (err) {
     console.error("Error editing rating:", err);
+    if(err.constraint === "check_value" || err.routine == "float8in_internal_opt_error") {
+      errors.push("Rating should be number between 0 and 10");
+    }
+    console.error("Error editing rating:", err);
+
+    res.redirect(`/edit/${movieId}`);
   }
-
-  res.redirect("/");
-
 });
 
 app.get("/search", async (req, res) => {

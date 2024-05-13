@@ -11,7 +11,7 @@
             <input type="text" class="input-field" id="editedRating" name="editedRating" value="<%= movieRating %>" required/>
             <label class="input-label">Rating</label>
           </div>
-          <div>
+          <div class="error">
             <% if(locals.errors.length > 0) { %>
             <% errors.forEach(error => { %>
               <p style="color: red"><%= error %></p>  
