@@ -3,14 +3,17 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
 
+import env from "dotenv";
+env.config();
+
 const app = express();
 const port = 3000;
 
 const dbConfig = {
-  user: "movie_library_gvr5_user",
-  host: "dpg-cp0vkqfjbltc73e4od4g-a",
-  database: "movie_library_gvr5",
-  password: "HrwgcJ4BUgZ3bkBpbix8zsgnzSALMJzR",
+  user: process.env.USER,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
   port: 5432,
 };
 
@@ -59,7 +62,7 @@ app.get("/", async (req, res) => {
   app.post("/add", rateLimitMiddleware, async (req, res) => {
     const movieName = req.body.movieName;
     const rating = req.body.rating;
-    const apiKey = "4c13b6d9";
+    const apiKey = process.env.API_KEY;
 
   try {
     const response = await axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(movieName)}`);
