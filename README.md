@@ -1,3 +1,7 @@
+# Link
+Access to the website is available at the following address, utilizing Render (https://render.com): 
+- https://movie-library-web-app.onrender.com
+
 # Description
 This project is a Movie Library web application built with Node.js, Express.js, PostgreSQL, and EJS templating engine. It allows users to manage and rate movies they have watched. Key features include viewing, adding, editing, and deleting movies. Users can also search for movies by title. The application fetches movie details from the OMDb API and stores them in a PostgreSQL database. Error handling is implemented for duplicate movies and invalid ratings.
 
