@@ -13,7 +13,7 @@
 
   <body >
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="padding-bottom: 0px; padding-top: 0px">
       <a class="navbar-brand card custom-color-logo" style="color: black; padding: 5px" href="/"><b>Fake IMDb</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
           <li class="nav-item">
             <form action="/search" method="GET" class="nav-link">
               <div class="input-group align-items-center">
-                <input type="text" name="search" class="form-control" placeholder="Search...">
+                <input type="text" name="search" class="form-control" placeholder="Search..." required>
                 <div class="input-group-append">
                   <button type="submit" style="background: none; border: none; outline: none;">
                     <img src="/assets/icons/search_icon.png">

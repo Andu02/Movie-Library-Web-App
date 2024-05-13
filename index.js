@@ -43,6 +43,7 @@ app.get("/", async (req, res) => {
     const movies = await getMovies();
     res.render("index.ejs", {
       movies,
+      isSearching
     });
   } catch (err) {
     console.error("Error getting movies:", err);
@@ -55,7 +56,7 @@ app.get("/", async (req, res) => {
       });
     });
 
-  app.post("/add", async (req, res) => {
+  app.post("/add", rateLimitMiddleware, async (req, res) => {
     const movieName = req.body.movieName;
     const rating = req.body.rating;
     const apiKey = "4c13b6d9";
@@ -153,7 +154,6 @@ app.post("/edit/:id", async (req, res) => {
 app.get("/search", async (req, res) => {
   
   const search = String(req.query.search).trim().toLowerCase();
-  console.log("Search", search);
 
   try {
 
@@ -178,3 +178,27 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
   
+const requestCounts = {};
+
+function rateLimitMiddleware(req, res, next) {
+  const ip = req.ip; 
+  const now = Date.now(); 
+  const windowMs = 15 * 60 * 1000; 
+  const maxRequests = 50;
+
+  if (!requestCounts[ip]) {
+    requestCounts[ip] = [];
+  }
+
+  requestCounts[ip] = requestCounts[ip].filter((timestamp) => {
+    return timestamp > now - windowMs;
+  });
+
+  if (requestCounts[ip].length >= maxRequests) {
+    return res.status(429).send('Too many movies added from this IP, please try again later');
+  }
+
+  requestCounts[ip].push(now);
+
+  next();
+}
