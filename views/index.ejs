@@ -1,12 +1,28 @@
 <%- include("partials/header.ejs") %>
 
+    <script>
+      // JavaScript to handle closing the menu when the mouse leaves the card
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.profile-card-6');
+
+        cards.forEach(card => {
+          const toggler = card.querySelector('.toggler');
+          card.addEventListener('mouseleave', () => {
+            toggler.checked = false; // Uncheck the toggler to close the menu
+          });
+        });
+      });
+    </script>
+
     <main role="main" class="container">
 
       <div class="starter-template">
         <% if(locals.isSearching === false) { %>  
+          <!-- Display title and description when not searching -->
           <h1>Movie Library</h1>
           <p class="lead">The movies I've seen so far with my personal rating.</p>
         <% } else if(locals.search) { %>
+          <!-- Display search results title -->
           <h1>You've searched for <i><%= search %></i></h1>
           <p class="lead">Here's the list.</p>
         <% } %>
@@ -19,13 +35,16 @@
       <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
         <div class="profile-card-6">
               <% if(movie.poster_src === "N/A") { %>
+                <!-- Placeholder image if no poster is available -->
                 <img src="assets/images/poster_placeholder.jpg" class="img-fluid">
               <% } else { %>
+                <!-- Display movie poster -->
                 <img src="<%= movie.poster_src %>" class="img-fluid">
               <% } %>
 
               <div class="profile-name" id="container">
                 <div id="menu-wrap">
+                  <!-- Menu toggler for each card -->
                   <input type="checkbox" class="toggler"/>
                   <div class="dots">
                     <div></div>
@@ -34,16 +53,19 @@
                     <div>
                       <ul>
                         <li>
+                          <!-- Delete movie form -->
                           <form action="/delete/<%= movie.id %>" method="post">
                             <input type="submit" value="Delete">
                           </form>
                         </li>
                         <li>
+                          <!-- Edit movie rating form -->
                           <form action="/edit/<%= movie.id %>" method="get">
                             <input type="submit" value="Edit Rating">
                           </form>
                         </li>
                         <li>
+                          <!-- View movie details on IMDb -->
                           <form action="/movie/<%= movie.id %>" method="get">
                             <input type="submit" value="Details">
                           </form>
@@ -53,11 +75,12 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="profile-position"><%= movie.description %></div> -->
+              <!-- Optional movie description can be displayed here -->
               <div class="profile-overview title-card">
                   <div class="text-center">
                       <div class="col-xs-4">
                           <div class="movie-info">
+                            <!-- Display movie title and rating -->
                             <h2><b><%= movie.title %></b></h2>
                             <h3><span style="color: #DBA506; font-size: 3rem;"><%= movie.rating %></span>/10</h3>
                           </div>

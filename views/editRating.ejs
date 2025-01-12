@@ -1,27 +1,30 @@
 <%- include("partials/header.ejs") %>
 
-    <main role="main" class="container">
+<main role="main" class="container">
 
-    <div class="form-container">
-      <!-- code here -->
-      <div class="card">
-        <h2 class="default-padding text-center no-margin">Edit rating of <br> <b><%= movieTitle %></b></h2>
-        <form action="/edit/<%= movieId %>" method="post" class="text-center card-form" autocomplete="off">
-          <div class="input">
-            <input type="text" class="input-field" id="editedRating" name="editedRating" value="<%= movieRating %>" required/>
-            <label class="input-label">Rating</label>
-          </div>
-          <div class="error">
-            <% if(locals.errors.length > 0) { %>
+  <div class="form-container">
+    <div class="card">
+      <h2 class="default-padding text-center no-margin">Edit rating of <br> <b><%= movieTitle %></b></h2>
+      <form action="/edit/<%= movieId %>" method="post" class="text-center card-form" autocomplete="off">
+        <!-- Input field for the rating -->
+        <div class="input">
+          <input type="text" class="input-field" id="editedRating" name="editedRating" value="<%= movieRating %>" required/>
+          <label class="input-label">Rating</label>
+        </div>
+        <!-- Error display section -->
+        <div class="error">
+          <% if(locals.errors.length > 0) { %> 
             <% errors.forEach(error => { %>
-              <p style="color: red"><%= error %></p>  
+              <p style="color: red"><%= error %></p> 
             <% })} %>
           </div>
-          <div class="action default-padding">
-            <button type="submit" class="action-button">Edit</button>
-          </div>
-        </form>
-      </div>
+
+        <div class="action default-padding">
+          <button type="submit" class="action-button">Edit</button>
+        </div>
+      </form>
     </div>
-    
-<%- include("partials/footer.ejs") %>   
+  </div>
+
+<%- include("partials/footer.ejs") %> 
+
