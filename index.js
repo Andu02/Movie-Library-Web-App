@@ -60,7 +60,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// Render page for adding a movie
+// Render add movie page
 app.get("/add", async (req, res) => {
   res.render("addMovie.ejs", {
     errors,
@@ -89,18 +89,13 @@ app.post("/add", rateLimitMiddleware, async (req, res) => {
 
     errors = [];
 
-    // Check if the movie already exists
-    if (err.routine === "_bt_check_unique") {
+    // Handle validations errors
+    if (err.constraint === "check_value") {
+      errors.push("Rating should be a number between 1 and 10");
+    } else if (err.routine === "_bt_check_unique") {
       errors.push("Movie is already listed");
     } else {
       errors.push("Movie not found");
-    }
-
-    if (
-      err.constraint === "check_value" ||
-      err.routine == "float8in_internal_opt_error"
-    ) {
-      errors.push("Rating should be number between 0 and 10");
     }
 
     res.redirect("/add");
@@ -171,7 +166,7 @@ app.post("/edit/:id", async (req, res) => {
       err.constraint === "check_value" ||
       err.routine == "float8in_internal_opt_error"
     ) {
-      errors.push("Rating should be number between 0 and 10");
+      errors.push("Rating should be a number between 0 and 10");
     }
     res.redirect(`/edit/${movieId}`);
   }
@@ -211,8 +206,8 @@ const requestCounts = {};
 function rateLimitMiddleware(req, res, next) {
   const ip = req.ip;
   const now = Date.now();
-  const windowMs = 15 * 60 * 1000; // Time window for rate limiting
-  const maxRequests = 50; // Maximum allowed requests per time window
+  const windowMs = 15 * 60 * 1000; // Time window
+  const maxRequests = 50; // Maximum allowed requests
 
   if (!requestCounts[ip]) {
     requestCounts[ip] = [];
