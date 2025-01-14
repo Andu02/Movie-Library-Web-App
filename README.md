@@ -21,7 +21,7 @@ This project is a Movie Library web application built with Node.js, Express.js, 
 
 - Node.js
 - Express.js
-- PostgreSQL
+- PostgreSQL ([Neon](https://neon.tech) for hosting the database)
 - EJS templating engine
 - Axios for HTTP requests
 - Body Parser middleware
